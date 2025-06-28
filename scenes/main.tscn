@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://bht21f7aw7qyw"]
+
+[ext_resource type="PackedScene" uid="uid://brpc3g1pt530j" path="res://scenes/player.tscn" id="1_o5qli"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_sgp6g"]
+viewport_path = NodePath("GameViewport")
+
+[node name="Main" type="Node"]
+
+[node name="GameViewport" type="SubViewport" parent="."]
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+size = Vector2i(320, 240)
+
+[node name="Player" parent="GameViewport" instance=ExtResource("1_o5qli")]
+
+[node name="Camera2D" type="Camera2D" parent="GameViewport"]
+drag_left_margin = 0.5
+drag_top_margin = 0.5
+drag_right_margin = 0.5
+drag_bottom_margin = 0.5
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_sgp6g")
+expand_mode = 1
+stretch_mode = 5
