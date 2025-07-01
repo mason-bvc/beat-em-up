@@ -1,21 +1,18 @@
 extends Node2D
 
 
-const EventDispatcher := preload('res://scripts/event_dispatcher.gd')
-
 var move_axes: Vector2
 
-@onready var animation_tree: AnimationTree = $AnimationPlayer/AnimationTree
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animation_tree: AnimationTree = $PlayerAnimationRoot/AnimationPlayer/AnimationTree
+@onready var animation_player: AnimationPlayer = $PlayerAnimationRoot/AnimationPlayer
 @onready var audio: AudioStreamPlaybackPolyphonic = %AudioStreamPlayer2D.get_stream_playback()
 @onready var collision: Node2D = $Collision
-@onready var event_dispatcher: EventDispatcher = $EventDispatcher
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree[&'parameters/playback']
 
 
 func _ready() -> void:
 	animation_player.add_user_signal('event', [
-		{ 'name':   'name', 'type': TYPE_STRING_NAME, },
+		{ 'name': 'name',   'type': TYPE_STRING_NAME, },
 		{ 'name': 'stream', 'type': TYPE_OBJECT,      },
 	])
 	animation_player.connect(&'event', _on_animation_event)
@@ -47,8 +44,3 @@ func _on_animation_event(p_name: StringName, argument: Variant) -> void:
 		audio.play_stream(argument)
 	elif p_name == &'active':
 		var area = animation_player.get_node(argument)
-
-		if area is Area2D:
-			if area.has_overlapping_areas():
-				for overlapping_area in area.get_overlapping_areas():
-					event_dispatcher.emit_event(&'hit', null)

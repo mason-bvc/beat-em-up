@@ -1,0 +1,212 @@
+[gd_scene load_steps=24 format=3 uid="uid://cmncedqum2nbs"]
+
+[ext_resource type="Script" uid="uid://chn6rwaeno7cp" path="res://scripts/proxy.gd" id="1_f8j26"]
+[ext_resource type="Texture2D" uid="uid://dmxlbvuikn2kg" path="res://textures/alex_idle.tres" id="2_1cm3h"]
+[ext_resource type="Texture2D" uid="uid://h2uyx155p4wf" path="res://textures/alex_jab_0.tres" id="3_rgsej"]
+[ext_resource type="Texture2D" uid="uid://dcd60daqhb1r" path="res://textures/alex_jab_1.tres" id="4_kqtih"]
+[ext_resource type="Texture2D" uid="uid://c63wt05hmb8tb" path="res://textures/alex_jab_2.tres" id="5_m66dh"]
+[ext_resource type="Texture2D" uid="uid://cdr1akuau0ypy" path="res://textures/alex_walk_0.tres" id="6_8px3q"]
+[ext_resource type="Texture2D" uid="uid://p0363cqd7wfr" path="res://textures/alex_walk_1.tres" id="7_n23vo"]
+
+[sub_resource type="Animation" id="Animation_sugp2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerAnimationRoot/SpriteProxy:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_1cm3h")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerAnimationRoot/SecondaryMovementProxy:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0wfyh"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerAnimationRoot/SpriteProxy:texture")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_1cm3h")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerAnimationRoot/SecondaryMovementProxy:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_smehm"]
+resource_name = "jab"
+length = 0.266673
+step = 0.0666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerAnimationRoot/SpriteProxy:texture")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_rgsej"), ExtResource("4_kqtih"), ExtResource("5_m66dh")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerAnimationRoot/SecondaryMovementProxy:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(-4, 0), Vector2(-1.5, 0), Vector2(2.5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jyhfs"]
+resource_name = "walk"
+length = 0.53334
+loop_mode = 1
+step = 0.0666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerAnimationRoot/SpriteProxy:texture")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.266667, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("6_8px3q"), ExtResource("2_1cm3h"), ExtResource("7_n23vo"), ExtResource("2_1cm3h")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerAnimationRoot/SecondaryMovementProxy:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.266667, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, -1), Vector2(0, 0), Vector2(0, -1), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sugp2"]
+_data = {
+&"RESET": SubResource("Animation_sugp2"),
+&"idle": SubResource("Animation_0wfyh"),
+&"jab": SubResource("Animation_smehm"),
+&"walk": SubResource("Animation_jyhfs")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fjrip"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_smehm"]
+animation = &"jab"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ur7pv"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_smehm"]
+advance_mode = 2
+
+[sub_resource type="Curve" id="Curve_smehm"]
+bake_resolution = 2
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 1, Vector2(1, 1), 0.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y4r1p"]
+xfade_curve = SubResource("Curve_smehm")
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d2wvv"]
+xfade_curve = SubResource("Curve_smehm")
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3v2ag"]
+xfade_curve = SubResource("Curve_smehm")
+advance_mode = 2
+advance_condition = &"is_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fjrip"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ur7pv"]
+xfade_curve = SubResource("Curve_smehm")
+advance_mode = 2
+advance_condition = &"is_not_walking"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_dqkch"]
+states/idle/node = SubResource("AnimationNodeAnimation_fjrip")
+states/idle/position = Vector2(396, 100)
+states/jab/node = SubResource("AnimationNodeAnimation_smehm")
+states/jab/position = Vector2(396, -16)
+states/walk/node = SubResource("AnimationNodeAnimation_ur7pv")
+states/walk/position = Vector2(396, 231)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_smehm"), "idle", "jab", SubResource("AnimationNodeStateMachineTransition_y4r1p"), "jab", "idle", SubResource("AnimationNodeStateMachineTransition_d2wvv"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_3v2ag"), "idle", "End", SubResource("AnimationNodeStateMachineTransition_fjrip"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_ur7pv")]
+graph_offset = Vector2(-70, -44)
+
+[node name="PlayerAnimationRoot" type="Node"]
+
+[node name="SpriteProxy" type="Node" parent="."]
+script = ExtResource("1_f8j26")
+forward_gets = true
+forward_sets = true
+custom_property_list = Array[Dictionary]([])
+
+[node name="JabHitboxProxy" type="Node" parent="."]
+script = ExtResource("1_f8j26")
+forward_gets = true
+forward_sets = true
+custom_property_list = Array[Dictionary]([])
+
+[node name="SecondaryMovementProxy" type="Node" parent="."]
+physics_interpolation_mode = 2
+script = ExtResource("1_f8j26")
+forward_gets = true
+forward_sets = true
+custom_property_list = Array[Dictionary]([])
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_sugp2")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="AnimationPlayer"]
+root_node = NodePath("../../..")
+tree_root = SubResource("AnimationNodeStateMachine_dqkch")
+anim_player = NodePath("..")
+parameters/conditions/is_not_walking = false
+parameters/conditions/is_walking = false

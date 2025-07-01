@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://o7ri7c0ndab4"]
+[gd_scene load_steps=6 format=3 uid="uid://o7ri7c0ndab4"]
 
 [ext_resource type="Script" uid="uid://c7b4j0vjqj27s" path="res://scripts/sandbag.gd" id="1_4iu50"]
-[ext_resource type="PackedScene" uid="uid://cem2tpp7wrr8" path="res://scenes/event_dispatcher.tscn" id="1_qb718"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mec5e"]
 
@@ -44,8 +43,6 @@ _data = {
 
 [node name="Sandbag" type="Node2D"]
 script = ExtResource("1_4iu50")
-
-[node name="EventDispatcher" parent="." instance=ExtResource("1_qb718")]
 
 [node name="HurtTransform" type="Node2D" parent="."]
 
