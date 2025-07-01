@@ -1,0 +1,9 @@
+res://scenes/sandbag.tscn
+res://scenes/main.tscn
+res://scenes/event_dispatcher.tscn
+res://scripts/player.gd
+res://scenes/player.tscn
+res://scripts/game.gd
+res://scripts/event_dispatcher.gd
+res://scripts/event_bus.gd
+res://scripts/sandbag.gd

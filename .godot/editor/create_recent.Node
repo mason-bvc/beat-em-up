@@ -1,0 +1,13 @@
+AudioStreamPlayer
+RemoteTransform2D
+Node2D
+AnimationPlayer
+Sprite2D
+TextureRect
+ParallaxLayer
+ParallaxBackground
+Node
+CollisionShape2D
+Area2D
+Polygon2D
+AudioStreamPlayer2D

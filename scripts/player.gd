@@ -1,8 +1,24 @@
 extends Node2D
 
 
+const EventDispatcher := preload('res://scripts/event_dispatcher.gd')
+
 var move_axes: Vector2
+
+@onready var animation_tree: AnimationTree = $AnimationPlayer/AnimationTree
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var audio: AudioStreamPlaybackPolyphonic = %AudioStreamPlayer2D.get_stream_playback()
+@onready var collision: Node2D = $Collision
+@onready var event_dispatcher: EventDispatcher = $EventDispatcher
+@onready var playback: AnimationNodeStateMachinePlayback = animation_tree[&'parameters/playback']
+
+
+func _ready() -> void:
+	animation_player.add_user_signal('event', [
+		{ 'name':   'name', 'type': TYPE_STRING_NAME, },
+		{ 'name': 'stream', 'type': TYPE_OBJECT,      },
+	])
+	animation_player.connect(&'event', _on_animation_event)
 
 
 func _process(delta: float) -> void:
@@ -10,7 +26,29 @@ func _process(delta: float) -> void:
 	move_axes.y = Input.get_axis(&'move_down', &'move_up')
 	move_axes = move_axes.normalized()
 
+	var is_not_walking := not is_equal_approx(move_axes.length_squared(), 0)
+
+	animation_tree[&'parameters/conditions/is_walking'] = is_not_walking
+	animation_tree[&'parameters/conditions/is_not_walking'] = not is_not_walking
+
 
 func _physics_process(delta: float) -> void:
 	global_position.x += move_axes.x * 75 * delta
 	global_position.y -= move_axes.y * 75 * delta
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(&'attack_primary'):
+		playback.travel(&'jab')
+
+
+func _on_animation_event(p_name: StringName, argument: Variant) -> void:
+	if p_name == &'sound':
+		audio.play_stream(argument)
+	elif p_name == &'active':
+		var area = animation_player.get_node(argument)
+
+		if area is Area2D:
+			if area.has_overlapping_areas():
+				for overlapping_area in area.get_overlapping_areas():
+					event_dispatcher.emit_event(&'hit', null)
