@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bgat5gnd8833o"
-path="res://.godot/imported/alex.png-6e46ca634c2d0e30484d279c4396ca64.ctex"
+path="res://.godot/imported/alex.png-3d013a8d2bda1979987b34927dd16f6d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/alex.png"
-dest_files=["res://.godot/imported/alex.png-6e46ca634c2d0e30484d279c4396ca64.ctex"]
+source_file="res://textures/characters/alex/alex.png"
+dest_files=["res://.godot/imported/alex.png-3d013a8d2bda1979987b34927dd16f6d.ctex"]
 
 [params]
 

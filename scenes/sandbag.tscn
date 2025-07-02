@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://o7ri7c0ndab4"]
+[gd_scene load_steps=7 format=3 uid="uid://o7ri7c0ndab4"]
 
 [ext_resource type="Script" uid="uid://c7b4j0vjqj27s" path="res://scripts/sandbag.gd" id="1_4iu50"]
+[ext_resource type="Script" uid="uid://bdkotf8snjt0u" path="res://scripts/health.gd" id="2_4iu50"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mec5e"]
 
@@ -49,9 +50,13 @@ script = ExtResource("1_4iu50")
 [node name="Polygon2D" type="Polygon2D" parent="HurtTransform"]
 polygon = PackedVector2Array(-8, 0, 8, 0, 8, -32, -8, -32)
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="Health" type="Node" parent="Hurtbox" node_paths=PackedStringArray("target")]
+script = ExtResource("2_4iu50")
+target = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, -16)
 shape = SubResource("CapsuleShape2D_mec5e")
 

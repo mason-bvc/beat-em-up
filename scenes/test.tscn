@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://7jqvv87hfpar"]
+
+[ext_resource type="FontFile" uid="uid://cl4gh5255gsvf" path="res://textures/fonts/uforia.png" id="1_errlg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bl13t"]
+font = ExtResource("1_errlg")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Okay, whatever dude."
+label_settings = SubResource("LabelSettings_bl13t")
+uppercase = true

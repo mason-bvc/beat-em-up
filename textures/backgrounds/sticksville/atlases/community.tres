@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dmjigoigg0ysb"]
+
+[ext_resource type="Texture2D" uid="uid://dgwhhr7n5q7m7" path="res://textures/backgrounds/sticksville/sticksville.png" id="1_6npx2"]
+
+[resource]
+atlas = ExtResource("1_6npx2")
+region = Rect2(1, 1, 503, 160)

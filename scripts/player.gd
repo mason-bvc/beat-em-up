@@ -6,7 +6,6 @@ var move_axes: Vector2
 @onready var animation_tree: AnimationTree = $PlayerAnimationRoot/AnimationPlayer/AnimationTree
 @onready var animation_player: AnimationPlayer = $PlayerAnimationRoot/AnimationPlayer
 @onready var audio: AudioStreamPlaybackPolyphonic = %AudioStreamPlayer2D.get_stream_playback()
-@onready var collision: Node2D = $Collision
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree[&'parameters/playback']
 
 
