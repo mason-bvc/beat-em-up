@@ -3,7 +3,7 @@ extends Area2D
 
 const HitInfo := preload('res://scripts/resources/hit_info.gd')
 
-signal hit_something(victims: Array[Node], hit_infos: HitInfo)
+signal hit_something(victims: Array[Node], hit_info: HitInfo)
 
 @export var hit_info: HitInfo
 

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://brpc3g1pt530j" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://282rc0w5sow1" path="res://scripts/game.gd" id="2_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://o7ri7c0ndab4" path="res://scenes/sandbag.tscn" id="3_sugp2"]
-[ext_resource type="Texture2D" uid="uid://dmjigoigg0ysb" path="res://textures/backgrounds/sticksville/atlases/community.tres" id="3_tipki"]
+[ext_resource type="PackedScene" uid="uid://bdt2slf3fbn0w" path="res://scenes/backgrounds/sticksville.tscn" id="3_tipki"]
 [ext_resource type="Shader" uid="uid://dplr5hgegn35b" path="res://shaders/lut_downmixed_canvas_item.gdshader" id="6_o6xl0"]
 [ext_resource type="FontFile" uid="uid://cl4gh5255gsvf" path="res://textures/fonts/uforia.png" id="6_tipki"]
 [ext_resource type="Texture2D" uid="uid://cjhklxiv616vl" path="res://textures/color_lut_nes.png" id="7_o6xl0"]
@@ -40,26 +40,26 @@ size = Vector2i(320, 240)
 [node name="GameCanvasLayer" type="CanvasLayer" parent="Game/GameViewport"]
 follow_viewport_enabled = true
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="Game/GameViewport/GameCanvasLayer"]
+[node name="Sticksville" parent="Game/GameViewport/GameCanvasLayer" instance=ExtResource("3_tipki")]
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="Game/GameViewport/GameCanvasLayer/ParallaxBackground"]
-motion_mirroring = Vector2(503, 0)
+[node name="Foreground" type="Node2D" parent="Game/GameViewport/GameCanvasLayer"]
+y_sort_enabled = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Game/GameViewport/GameCanvasLayer/ParallaxBackground/ParallaxLayer"]
-texture = ExtResource("3_tipki")
-centered = false
-
-[node name="Sandbag" parent="Game/GameViewport/GameCanvasLayer" instance=ExtResource("3_sugp2")]
+[node name="Sandbag" parent="Game/GameViewport/GameCanvasLayer/Foreground" instance=ExtResource("3_sugp2")]
 position = Vector2(128, 120)
 
-[node name="Sandbag2" parent="Game/GameViewport/GameCanvasLayer" instance=ExtResource("3_sugp2")]
+[node name="Sandbag2" parent="Game/GameViewport/GameCanvasLayer/Foreground" instance=ExtResource("3_sugp2")]
 position = Vector2(160, 120)
 
-[node name="Player" parent="Game/GameViewport/GameCanvasLayer" instance=ExtResource("1_o5qli")]
+[node name="Player" parent="Game/GameViewport/GameCanvasLayer/Foreground" instance=ExtResource("1_o5qli")]
 position = Vector2(48, 120)
 
-[node name="Camera2D" type="Camera2D" parent="Game/GameViewport/GameCanvasLayer"]
+[node name="AudioListener2D" type="AudioListener2D" parent="Game/GameViewport/GameCanvasLayer/Foreground/Player"]
+
+[node name="Camera2D" type="Camera2D" parent="Game/GameViewport/GameCanvasLayer/Foreground"]
 offset = Vector2(0, 60)
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="ScreenCanvasLayer" type="CanvasLayer" parent="Game/GameViewport"]
 
@@ -110,7 +110,7 @@ uppercase = true
 stream = SubResource("AudioStreamPolyphonic_o6xl0")
 autoplay = true
 
-[node name="ClearColorRect" type="ColorRect" parent="Game"]
+[node name="ClearColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -119,7 +119,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="GameViewportTextureRect" type="TextureRect" parent="Game"]
+[node name="GameViewportTextureRect" type="TextureRect" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_o6xl0")
 anchors_preset = 15

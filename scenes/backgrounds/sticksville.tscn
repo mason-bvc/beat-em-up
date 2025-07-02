@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdt2slf3fbn0w"]
+
+[ext_resource type="Texture2D" uid="uid://dmjigoigg0ysb" path="res://textures/backgrounds/sticksville/atlas_textures/community.tres" id="1_28gnj"]
+[ext_resource type="Script" uid="uid://gl62nn2uhal6" path="res://scripts/y_max.gd" id="1_68iwm"]
+
+[node name="Sticksville" type="Node2D"]
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../Background/ParallaxLayer")
+
+[node name="YMax" type="Node2D" parent="."]
+position = Vector2(0, 104)
+script = ExtResource("1_68iwm")
+height = 64.0
+
+[node name="Background" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
+motion_mirroring = Vector2(503, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
+texture = ExtResource("1_28gnj")
+centered = false
+
+[node name="Foreground" type="ParallaxBackground" parent="."]
+layer = 100
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Foreground"]
+motion_mirroring = Vector2(503, 0)
+
+[node name="ColorRect" type="ColorRect" parent="Foreground/ParallaxLayer"]
+offset_top = 160.0
+offset_right = 503.0
+offset_bottom = 200.0
+color = Color(0, 0, 0, 1)
