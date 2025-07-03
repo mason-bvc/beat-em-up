@@ -1,6 +1,5 @@
-[gd_scene load_steps=37 format=3 uid="uid://cmncedqum2nbs"]
+[gd_scene load_steps=36 format=3 uid="uid://cmncedqum2nbs"]
 
-[ext_resource type="Script" uid="uid://c04506tjrhvag" path="res://scripts/animation_root.gd" id="1_1cm3h"]
 [ext_resource type="Texture2D" uid="uid://dmxlbvuikn2kg" path="res://textures/characters/alex/atlas_textures/alex_idle.tres" id="2_1cm3h"]
 [ext_resource type="Script" uid="uid://c5s6dhxluqtt0" path="res://scripts/hitbox.gd" id="3_1cm3h"]
 [ext_resource type="Texture2D" uid="uid://h2uyx155p4wf" path="res://textures/characters/alex/atlas_textures/alex_jab_0.tres" id="3_rgsej"]
@@ -275,7 +274,6 @@ graph_offset = Vector2(8, 85)
 
 [node name="PlayerAnimationRoot" type="Node2D"]
 physics_interpolation_mode = 2
-script = ExtResource("1_1cm3h")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 physics_interpolation_mode = 2

@@ -2,7 +2,7 @@ extends Node
 
 
 const Types := preload('res://scripts/types.gd')
-const Actor := Types.Actor
+const CharacterController := Types.CharacterController
 const Health := Types.Health
 const YMax := Types.YMax
 const Hitbox := preload('res://scripts/hitbox.gd')
@@ -15,7 +15,7 @@ var _node_added_handlers: Dictionary[Variant, Callable] = {
 	YMax: func (node: YMax) -> void:
 		_y_max = node,
 
-	Actor: func (node: Actor) -> void:
+	CharacterController: func (node: CharacterController) -> void:
 		node.y_max = _y_max,
 
 	Hitbox: func (node: Hitbox) -> void:

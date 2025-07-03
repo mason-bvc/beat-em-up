@@ -2,13 +2,13 @@ extends Node2D
 
 
 const Types := preload('res://scripts/types.gd')
-const Actor := Types.Actor
+const CharacterController := Types.CharacterController
 const FrameData := preload('res://scripts/frame_data.gd')
 const HitInfo := preload('res://scripts/resources/hit_info.gd')
 
 var move_axes: Vector2
 
-@onready var actor: Actor = $Actor
+@onready var character_controller: CharacterController = $CharacterController
 @onready var animation_tree: AnimationTree = $PlayerAnimationRoot/AnimationPlayer/AnimationTree
 @onready var animation_player: AnimationPlayer = $PlayerAnimationRoot/AnimationPlayer
 @onready var audio: AudioStreamPlaybackPolyphonic = $AudioStreamPlayer2D.get_stream_playback()
@@ -41,7 +41,7 @@ func _physics_process(delta: float) -> void:
 
 	move.y *= -1
 	move *= float(playback.get_current_node() != &'jab')
-	actor.try_move(move)
+	character_controller.try_move(move)
 
 
 func _unhandled_input(event: InputEvent) -> void:

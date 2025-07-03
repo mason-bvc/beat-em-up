@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://brpc3g1pt530j"]
 
 [ext_resource type="Script" uid="uid://cf7ret34nxjxw" path="res://scripts/player.gd" id="1_qhqgy"]
-[ext_resource type="Script" uid="uid://dsxvmt6p2arr4" path="res://scripts/actor.gd" id="2_qhqgy"]
+[ext_resource type="Script" uid="uid://dsxvmt6p2arr4" path="res://scripts/character_controller.gd" id="2_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://cmncedqum2nbs" path="res://scenes/player_animation_root.tscn" id="3_qhqgy"]
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_g2els"]
@@ -10,7 +10,7 @@
 texture_filter = 1
 script = ExtResource("1_qhqgy")
 
-[node name="Actor" type="Node" parent="." node_paths=PackedStringArray("target")]
+[node name="CharacterController" type="Node" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("2_qhqgy")
 target = NodePath("..")
 
