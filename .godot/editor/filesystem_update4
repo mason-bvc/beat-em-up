@@ -1,12 +1,2 @@
 res://scenes/player.tscn
-res://scripts/actor.gd
-res://scripts/player.gd
-res://scenes/main.tscn
-res://scenes/backgrounds/sticksville.tscn
-res://scripts/types.gd
-res://scripts/y_max.gd
-res://scripts/game.gd
-res://scripts/scratch.gd
-res://scenes/player_animation_root.tscn
-res://scripts/audio.gd
-res://scripts/signal_giver.gd
+res://scripts/player_controller.gd

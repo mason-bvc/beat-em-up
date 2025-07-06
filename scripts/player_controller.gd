@@ -1,28 +1,28 @@
-extends Node2D
+extends Node
 
 
 const Types := preload('res://scripts/types.gd')
-const CharacterController := Types.CharacterController
+const CharacterComponent := Types.CharacterComponent
 const FrameData := preload('res://scripts/frame_data.gd')
 const HitInfo := preload('res://scripts/resources/hit_info.gd')
 
+@export var character_component: CharacterComponent
+
+var combo_counter: int
 var move_axes: Vector2
 
-@onready var character_controller: CharacterController = $CharacterController
-@onready var animation_tree: AnimationTree = $PlayerAnimationRoot/AnimationPlayer/AnimationTree
-@onready var animation_player: AnimationPlayer = $PlayerAnimationRoot/AnimationPlayer
-@onready var audio: AudioStreamPlaybackPolyphonic = $AudioStreamPlayer2D.get_stream_playback()
-@onready var frame_data: FrameData = $PlayerAnimationRoot/FrameData as Object as FrameData
+@onready var combo_animation_player: AnimationPlayer = get_node(^'../ComboAnimationPlayer')
+@onready var animation_tree: AnimationTree = (
+		get_node(^'../PlayerAnimationRoot/AnimationPlayer/AnimationTree'))
+@onready var audio: AudioStreamPlaybackPolyphonic = (
+		get_node(^'../AudioStreamPlayer2D').get_stream_playback())
+@onready var frame_data: FrameData = (
+		get_node(^'../PlayerAnimationRoot/FrameData') as Object as FrameData)
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree[&'parameters/playback']
 
 
 func _ready() -> void:
-	animation_player.add_user_signal('event', [
-		{ 'name': 'name',   'type': TYPE_STRING_NAME, },
-		{ 'name': 'stream', 'type': TYPE_OBJECT,      },
-	])
-
-	animation_player.connect(&'event', _on_animation_event)
+	combo_animation_player.animation_finished.connect(_on_combo_animation_player_animation_finished)
 
 
 func _process(delta: float) -> void:
@@ -41,17 +41,15 @@ func _physics_process(delta: float) -> void:
 
 	move.y *= -1
 	move *= float(playback.get_current_node() != &'jab')
-	character_controller.try_move(move)
+	character_component.try_move(move)
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&'attack_primary'):
-		playback.travel(&'jab')
-
-
-func _on_animation_event(p_name: StringName, argument: Variant) -> void:
-	if p_name == &'active':
-		var area = animation_player.get_node(argument)
+		if combo_counter == 0:
+			playback.travel(&'jab')
+		elif combo_counter == 1:
+			playback.travel(&'uppercut')
 
 
 func _on_hitbox_hit(victims: Array[Node], hit_info: HitInfo) -> void:
@@ -59,4 +57,10 @@ func _on_hitbox_hit(victims: Array[Node], hit_info: HitInfo) -> void:
 		if victim.owner == owner:
 			continue
 
+		combo_counter += 1
+		combo_animation_player.play(&'combo')
 		audio.play_stream(preload('res://audio/sounds/hit.wav'))
+
+
+func _on_combo_animation_player_animation_finished(anim_name: StringName) -> void:
+	combo_counter = 0
