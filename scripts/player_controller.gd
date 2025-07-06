@@ -9,6 +9,7 @@ const HitInfo := preload('res://scripts/resources/hit_info.gd')
 @export var character_component: CharacterComponent
 
 var combo_counter: int
+var combo_queue: Array[Callable]
 var move_axes: Vector2
 
 @onready var combo_animation_player: AnimationPlayer = get_node(^'../ComboAnimationPlayer')
@@ -46,10 +47,10 @@ func _physics_process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&'attack_primary'):
-		if combo_counter == 0:
-			playback.travel(&'jab')
-		elif combo_counter == 1:
-			playback.travel(&'uppercut')
+		combo_queue.push_back(func () -> bool:
+				combo_animation_player.play(&'combo')
+				playback.travel(&'jab')
+				return false)
 
 
 func _on_hitbox_hit(victims: Array[Node], hit_info: HitInfo) -> void:
@@ -57,10 +58,11 @@ func _on_hitbox_hit(victims: Array[Node], hit_info: HitInfo) -> void:
 		if victim.owner == owner:
 			continue
 
-		combo_counter += 1
 		combo_animation_player.play(&'combo')
 		audio.play_stream(preload('res://audio/sounds/hit.wav'))
 
 
 func _on_combo_animation_player_animation_finished(anim_name: StringName) -> void:
-	combo_counter = 0
+	if not combo_queue.is_empty():
+		if not combo_queue.pop_front().call():
+			combo_queue.clear()
