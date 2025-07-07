@@ -1,19 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://brpc3g1pt530j"]
+[gd_scene load_steps=5 format=3 uid="uid://brpc3g1pt530j"]
 
 [ext_resource type="Script" uid="uid://cf7ret34nxjxw" path="res://scripts/player_controller.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://dsxvmt6p2arr4" path="res://scripts/character_component.gd" id="2_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://cmncedqum2nbs" path="res://scenes/player_animation_root.tscn" id="3_qhqgy"]
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_g2els"]
-
-[sub_resource type="Animation" id="Animation_qhqgy"]
-resource_name = "combo"
-length = 0.25
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dqkch"]
-_data = {
-&"combo": SubResource("Animation_qhqgy")
-}
 
 [node name="Player" type="Node2D"]
 texture_filter = 1
@@ -29,15 +20,17 @@ autoplay = true
 [node name="PlayerAnimationRoot" parent="." instance=ExtResource("3_qhqgy")]
 position = Vector2(0, -16)
 
-[node name="ComboAnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../PlayerController")
-libraries = {
-&"": SubResource("AnimationLibrary_dqkch")
-}
-
 [node name="PlayerController" type="Node" parent="." node_paths=PackedStringArray("character_component")]
 script = ExtResource("1_qhqgy")
 character_component = NodePath("../CharacterComponent")
+
+[node name="AttackTimer" type="Timer" parent="PlayerController"]
+wait_time = 0.25
+one_shot = true
+
+[node name="LinkTimer" type="Timer" parent="PlayerController"]
+wait_time = 0.25
+one_shot = true
 
 [connection signal="hit_something" from="PlayerAnimationRoot/JabHitbox" to="PlayerController" method="_on_hitbox_hit"]
 

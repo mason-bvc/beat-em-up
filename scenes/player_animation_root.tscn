@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cmncedqum2nbs"]
+[gd_scene load_steps=43 format=3 uid="uid://cmncedqum2nbs"]
 
 [ext_resource type="Texture2D" uid="uid://dmxlbvuikn2kg" path="res://textures/characters/alex/atlas_textures/alex_idle.tres" id="2_1cm3h"]
 [ext_resource type="Script" uid="uid://c5s6dhxluqtt0" path="res://scripts/hitbox.gd" id="3_1cm3h"]
@@ -12,6 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://c6srsr6xax5sc" path="res://textures/characters/alex/atlas_textures/alex_kick_0.tres" id="10_kqtih"]
 [ext_resource type="Texture2D" uid="uid://bjbhrbm7yhim8" path="res://textures/characters/alex/atlas_textures/alex_uppercut_0.tres" id="11_8px3q"]
 [ext_resource type="Texture2D" uid="uid://b2u8x0l4cu3rg" path="res://textures/characters/alex/atlas_textures/alex_uppercut_1.tres" id="12_n23vo"]
+[ext_resource type="Texture2D" uid="uid://bcnyu28vfbje0" path="res://textures/characters/alex/atlas_textures/alex_kick_1.tres" id="13_n23vo"]
+[ext_resource type="Texture2D" uid="uid://c5u76ebnkmoyt" path="res://textures/characters/alex/atlas_textures/alex_kick_3.tres" id="14_k63u7"]
+[ext_resource type="Texture2D" uid="uid://bcna5f6e8ffx2" path="res://textures/characters/alex/atlas_textures/alex_kick_2.tres" id="15_xo3u1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f8j26"]
 size = Vector2(2, 10)
@@ -128,6 +131,56 @@ tracks/2/keys = {
 }]
 }
 
+[sub_resource type="Resource" id="Resource_k63u7"]
+script = ExtResource("7_rgsej")
+damage = 68.0
+max_victims = 1
+does_launch = true
+launch_amount = Vector2(10, -5)
+extra = {}
+
+[sub_resource type="Animation" id="Animation_8px3q"]
+resource_name = "roundhouse"
+length = 0.55
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.366667, 0.466667, 0.533333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("10_kqtih"), ExtResource("13_n23vo"), ExtResource("14_k63u7"), ExtResource("15_xo3u1"), ExtResource("10_kqtih"), ExtResource("6_8px3q")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.0983987, 0.366667, 0.466667, 0.533333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 2), Vector2(2, 2), Vector2(10, 2), Vector2(8, 2), Vector2(6, 2), Vector2(2, 2), Vector2(0, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("JabHitbox")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0666667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [SubResource("Resource_k63u7")],
+"method": &"check_hit"
+}]
+}
+
 [sub_resource type="Resource" id="Resource_8px3q"]
 resource_local_to_scene = true
 script = ExtResource("7_rgsej")
@@ -139,7 +192,7 @@ extra = {}
 
 [sub_resource type="Animation" id="Animation_m66dh"]
 resource_name = "uppercut"
-length = 0.53334
+length = 0.3
 step = 0.0666667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -215,6 +268,7 @@ _data = {
 &"RESET": SubResource("Animation_4i3jd"),
 &"idle": SubResource("Animation_1cm3h"),
 &"jab": SubResource("Animation_f8j26"),
+&"roundhouse": SubResource("Animation_8px3q"),
 &"uppercut": SubResource("Animation_m66dh"),
 &"walk": SubResource("Animation_ifr3y")
 }
@@ -224,6 +278,9 @@ animation = &"idle"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rgsej"]
 animation = &"jab"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k63u7"]
+animation = &"roundhouse"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8px3q"]
 animation = &"uppercut"
@@ -260,17 +317,23 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xo3u1"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_rgsej"]
 states/idle/node = SubResource("AnimationNodeAnimation_f8j26")
 states/idle/position = Vector2(361, 100)
 states/jab/node = SubResource("AnimationNodeAnimation_rgsej")
 states/jab/position = Vector2(269, 204)
+states/roundhouse/node = SubResource("AnimationNodeAnimation_k63u7")
+states/roundhouse/position = Vector2(613, 193)
 states/uppercut/node = SubResource("AnimationNodeAnimation_8px3q")
 states/uppercut/position = Vector2(470, 204)
 states/walk/node = SubResource("AnimationNodeAnimation_1cm3h")
 states/walk/position = Vector2(361, -9)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_rgsej"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_kqtih"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_f8j26"), "idle", "End", SubResource("AnimationNodeStateMachineTransition_m66dh"), "jab", "idle", SubResource("AnimationNodeStateMachineTransition_1cm3h"), "uppercut", "idle", SubResource("AnimationNodeStateMachineTransition_n23vo")]
-graph_offset = Vector2(8, 85)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_rgsej"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_kqtih"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_f8j26"), "idle", "End", SubResource("AnimationNodeStateMachineTransition_m66dh"), "jab", "idle", SubResource("AnimationNodeStateMachineTransition_1cm3h"), "uppercut", "idle", SubResource("AnimationNodeStateMachineTransition_n23vo"), "roundhouse", "idle", SubResource("AnimationNodeStateMachineTransition_xo3u1")]
+graph_offset = Vector2(-51, 56)
 
 [node name="PlayerAnimationRoot" type="Node2D"]
 physics_interpolation_mode = 2
@@ -301,6 +364,7 @@ autoplay = true
 
 [node name="FrameData" type="Node" parent="."]
 script = ExtResource("4_rmqy4")
+can_queue_next = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

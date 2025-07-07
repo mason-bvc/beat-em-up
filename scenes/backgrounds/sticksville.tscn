@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bdt2slf3fbn0w"]
 
-[ext_resource type="Texture2D" uid="uid://dmjigoigg0ysb" path="res://textures/backgrounds/sticksville/atlas_textures/community.tres" id="1_28gnj"]
 [ext_resource type="Script" uid="uid://gl62nn2uhal6" path="res://scripts/y_max.gd" id="1_68iwm"]
+[ext_resource type="Texture2D" uid="uid://ydojojbkg6u7" path="res://textures/backgrounds/sticksville/sticksville_0.png" id="2_68iwm"]
 
 [node name="Sticksville" type="Node2D"]
 
@@ -19,7 +19,7 @@ height = 64.0
 motion_mirroring = Vector2(503, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
-texture = ExtResource("1_28gnj")
+texture = ExtResource("2_68iwm")
 centered = false
 
 [node name="Foreground" type="ParallaxBackground" parent="."]
