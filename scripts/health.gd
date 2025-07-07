@@ -30,7 +30,7 @@ static func try_get_from(node: Node) -> Health:
 
 
 func _ready() -> void:
-	try_give_to(get_parent())
+	try_give_to(target)
 
 
 func try_give_to(node: Node) -> bool:

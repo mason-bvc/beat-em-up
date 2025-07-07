@@ -34,7 +34,7 @@ func _ready() -> void:
 	while not menu.is_node_ready():
 		await get_tree().process_frame
 
-	menu.size = sub_viewport.size
+	menu.set_deferred(&'size', sub_viewport.size)
 	menu.start_pressed.connect(change_scene.bind(func () -> Node:
 		return GAME.instantiate()))
 	_current_root = menu

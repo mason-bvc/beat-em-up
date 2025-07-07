@@ -1,28 +1,41 @@
-[gd_scene load_steps=5 format=3 uid="uid://brpc3g1pt530j"]
+[gd_scene load_steps=8 format=3 uid="uid://brpc3g1pt530j"]
 
+[ext_resource type="Script" uid="uid://d2aidgfi7xh66" path="res://scripts/player.gd" id="1_dqkch"]
 [ext_resource type="Script" uid="uid://cf7ret34nxjxw" path="res://scripts/player_controller.gd" id="1_qhqgy"]
+[ext_resource type="Script" uid="uid://bdkotf8snjt0u" path="res://scripts/health.gd" id="2_fjrip"]
 [ext_resource type="Script" uid="uid://dsxvmt6p2arr4" path="res://scripts/character_component.gd" id="2_qhqgy"]
-[ext_resource type="PackedScene" uid="uid://cmncedqum2nbs" path="res://scenes/player_animation_root.tscn" id="3_qhqgy"]
-
-[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_g2els"]
+[ext_resource type="PackedScene" uid="uid://cmncedqum2nbs" path="res://scenes/character_visuals.tscn" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://dmxlbvuikn2kg" path="res://textures/characters/alex/atlas_textures/alex_idle.tres" id="4_tuyoq"]
+[ext_resource type="AnimationLibrary" uid="uid://0cw4xkg8ts36" path="res://animation_libraries/alex.tres" id="5_fjrip"]
 
 [node name="Player" type="Node2D"]
 texture_filter = 1
+script = ExtResource("1_dqkch")
+
+[node name="Health" type="Node" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("2_fjrip")
+target = NodePath("../CharacterVisuals/Hurtbox")
 
 [node name="CharacterComponent" type="Node" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("2_qhqgy")
 target = NodePath("..")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamPolyphonic_g2els")
-autoplay = true
-
-[node name="PlayerAnimationRoot" parent="." instance=ExtResource("3_qhqgy")]
+[node name="CharacterVisuals" parent="." instance=ExtResource("3_qhqgy")]
 position = Vector2(0, -16)
 
-[node name="PlayerController" type="Node" parent="." node_paths=PackedStringArray("character_component")]
+[node name="Sprite2D" parent="CharacterVisuals" index="0"]
+texture = ExtResource("4_tuyoq")
+
+[node name="Hurtbox" parent="CharacterVisuals" index="2" node_paths=PackedStringArray("health")]
+health = NodePath("../../Health")
+
+[node name="AnimationPlayer" parent="CharacterVisuals" index="5"]
+libraries = {
+&"": ExtResource("5_fjrip")
+}
+
+[node name="PlayerController" type="Node" parent="."]
 script = ExtResource("1_qhqgy")
-character_component = NodePath("../CharacterComponent")
 
 [node name="AttackTimer" type="Timer" parent="PlayerController"]
 wait_time = 0.25
@@ -32,6 +45,6 @@ one_shot = true
 wait_time = 0.25
 one_shot = true
 
-[connection signal="hit_something" from="PlayerAnimationRoot/JabHitbox" to="PlayerController" method="_on_hitbox_hit"]
+[connection signal="hit_something" from="CharacterVisuals/JabHitbox" to="PlayerController" method="_on_hitbox_hit"]
 
-[editable path="PlayerAnimationRoot"]
+[editable path="CharacterVisuals"]

@@ -1,0 +1,141 @@
+[gd_scene load_steps=28 format=3 uid="uid://cmncedqum2nbs"]
+
+[ext_resource type="Script" uid="uid://ddbjih6ugqjs0" path="res://scripts/character_visuals.gd" id="1_nhm7w"]
+[ext_resource type="Script" uid="uid://c5s6dhxluqtt0" path="res://scripts/hitbox.gd" id="3_1cm3h"]
+[ext_resource type="Script" uid="uid://cc31s73noqg51" path="res://scripts/hurtbox.gd" id="4_i3au4"]
+[ext_resource type="Script" uid="uid://sa0ejxy2xvox" path="res://scripts/frame_data.gd" id="4_rmqy4"]
+[ext_resource type="Texture2D" uid="uid://dkdokm5vosfv" path="res://textures/characters/chain_guy/atlas_textures/chain_guy_idle.tres" id="5_5ufdq"]
+[ext_resource type="AnimationLibrary" uid="uid://dlcvq8fovjcsy" path="res://animation_libraries/chain_guy.tres" id="5_i3au4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f8j26"]
+size = Vector2(2, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1cm3h"]
+size = Vector2(12, 13)
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_rmqy4"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i3au4"]
+animation = &"hurt"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f8j26"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rgsej"]
+animation = &"jab"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k63u7"]
+animation = &"roundhouse"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8px3q"]
+animation = &"uppercut"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1cm3h"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5ufdq"]
+animation = &"whip"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rgsej"]
+advance_mode = 2
+
+[sub_resource type="Curve" id="Curve_f8j26"]
+bake_resolution = 2
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kqtih"]
+xfade_curve = SubResource("Curve_f8j26")
+advance_mode = 2
+advance_condition = &"is_not_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f8j26"]
+xfade_curve = SubResource("Curve_f8j26")
+advance_mode = 2
+advance_condition = &"is_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m66dh"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1cm3h"]
+xfade_curve = SubResource("Curve_f8j26")
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n23vo"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xo3u1"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5ufdq"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x1ysr"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_rgsej"]
+states/hurt/node = SubResource("AnimationNodeAnimation_i3au4")
+states/hurt/position = Vector2(608, 253)
+states/idle/node = SubResource("AnimationNodeAnimation_f8j26")
+states/idle/position = Vector2(361, 100)
+states/jab/node = SubResource("AnimationNodeAnimation_rgsej")
+states/jab/position = Vector2(108, 253)
+states/roundhouse/node = SubResource("AnimationNodeAnimation_k63u7")
+states/roundhouse/position = Vector2(405, 253)
+states/uppercut/node = SubResource("AnimationNodeAnimation_8px3q")
+states/uppercut/position = Vector2(261, 253)
+states/walk/node = SubResource("AnimationNodeAnimation_1cm3h")
+states/walk/position = Vector2(361, -9)
+states/whip/node = SubResource("AnimationNodeAnimation_5ufdq")
+states/whip/position = Vector2(729, 179)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_rgsej"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_kqtih"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_f8j26"), "idle", "End", SubResource("AnimationNodeStateMachineTransition_m66dh"), "jab", "idle", SubResource("AnimationNodeStateMachineTransition_1cm3h"), "uppercut", "idle", SubResource("AnimationNodeStateMachineTransition_n23vo"), "roundhouse", "idle", SubResource("AnimationNodeStateMachineTransition_xo3u1"), "whip", "idle", SubResource("AnimationNodeStateMachineTransition_5ufdq"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_x1ysr")]
+graph_offset = Vector2(-44, 81)
+
+[node name="CharacterVisuals" type="Node2D"]
+physics_interpolation_mode = 2
+script = ExtResource("1_nhm7w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+physics_interpolation_mode = 2
+y_sort_enabled = true
+texture = ExtResource("5_5ufdq")
+
+[node name="JabHitbox" type="Area2D" parent="."]
+position = Vector2(15, -3)
+script = ExtResource("3_1cm3h")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JabHitbox"]
+shape = SubResource("RectangleShape2D_f8j26")
+metadata/_edit_lock_ = true
+
+[node name="Hurtbox" type="Area2D" parent="."]
+script = ExtResource("4_i3au4")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_1cm3h")
+metadata/_edit_lock_ = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamPolyphonic_rmqy4")
+autoplay = true
+
+[node name="FrameData" type="Node" parent="."]
+script = ExtResource("4_rmqy4")
+can_queue_next = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": ExtResource("5_i3au4")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_rgsej")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/is_not_walking = false
+parameters/conditions/is_walking = false

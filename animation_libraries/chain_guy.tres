@@ -1,0 +1,180 @@
+[gd_resource type="AnimationLibrary" load_steps=13 format=3 uid="uid://dlcvq8fovjcsy"]
+
+[ext_resource type="Texture2D" uid="uid://dkdokm5vosfv" path="res://textures/characters/chain_guy/atlas_textures/chain_guy_idle.tres" id="1_rxlk2"]
+[ext_resource type="Texture2D" uid="uid://ycs4pqfxibyd" path="res://textures/characters/chain_guy/atlas_textures/chain_guy_stride.tres" id="2_5ts0v"]
+[ext_resource type="Texture2D" uid="uid://b7si5at11r520" path="res://textures/characters/chain_guy/atlas_textures/chain_guy_whip_0.tres" id="3_nnxjl"]
+[ext_resource type="Texture2D" uid="uid://fh24vmi1l4jl" path="res://textures/characters/chain_guy/atlas_textures/chain_guy_whip_1.tres" id="4_nwyku"]
+[ext_resource type="Script" uid="uid://cwe3xluj631g7" path="res://scripts/resources/hit_info.gd" id="5_m08sw"]
+[ext_resource type="Texture2D" uid="uid://y4jus3y3l0pd" path="res://textures/characters/chain_guy/atlas_textures/chain_guy_die_0.tres" id="6_5ts0v"]
+
+[sub_resource type="Animation" id="Animation_i3au4"]
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_rxlk2")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_x1ysr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_rxlk2")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5ufdq"]
+resource_name = "walk"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_5ts0v"), ExtResource("1_rxlk2")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(2, -1), Vector2(0, 0)]
+}
+
+[sub_resource type="Resource" id="Resource_ipgij"]
+resource_local_to_scene = true
+script = ExtResource("5_m08sw")
+damage = 10.0
+max_victims = 1
+does_launch = false
+launch_amount = Vector2(0, 0)
+extra = {}
+
+[sub_resource type="Animation" id="Animation_7k70o"]
+resource_name = "whip"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("3_nnxjl"), ExtResource("4_nwyku")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.433333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(-7, -3), Vector2(13, 0), Vector2(11, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("JabHitbox")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [SubResource("Resource_ipgij")],
+"method": &"check_hit"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_nnxjl"]
+resource_name = "hurt"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_5ts0v")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.141),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(-2, 0), Vector2(2, 0), Vector2(0, 0)]
+}
+
+[resource]
+_data = {
+&"RESET": SubResource("Animation_x1ysr"),
+&"hurt": SubResource("Animation_nnxjl"),
+&"idle": SubResource("Animation_i3au4"),
+&"walk": SubResource("Animation_5ufdq"),
+&"whip": SubResource("Animation_7k70o")
+}

@@ -26,6 +26,9 @@ var _node_added_handlers: Dictionary[Variant, Callable] = {
 
 	preload('res://scripts/shaker.gd'): func (node: Node) -> void:
 		_camera_shaker = node,
+
+	preload('res://scripts/chain_guy.gd'): func (node: Node) -> void:
+		node.enemy_controller.target = player,
 }
 
 @onready var audio_playback: AudioStreamPlaybackPolyphonic = $AudioStreamPlayer.get_stream_playback()

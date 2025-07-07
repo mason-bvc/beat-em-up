@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhyo8g14nrhcm"]
+
+[ext_resource type="Script" uid="uid://dsxvmt6p2arr4" path="res://scripts/character_component.gd" id="1_chibc"]
+[ext_resource type="Script" uid="uid://bhrug3gtvi3oa" path="res://scripts/chain_guy.gd" id="1_yi2ou"]
+[ext_resource type="PackedScene" uid="uid://cmncedqum2nbs" path="res://scenes/character_visuals.tscn" id="2_ngl0q"]
+[ext_resource type="Script" uid="uid://bdkotf8snjt0u" path="res://scripts/health.gd" id="2_rqey2"]
+[ext_resource type="Script" uid="uid://coie61motxtuh" path="res://scripts/enemy_controller.gd" id="3_mk2qo"]
+
+[node name="ChainGuy" type="Node2D"]
+script = ExtResource("1_yi2ou")
+
+[node name="Health" type="Node" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("2_rqey2")
+target = NodePath("../CharacterVisuals/Hurtbox")
+
+[node name="CharacterComponent" type="Node" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("1_chibc")
+target = NodePath("..")
+
+[node name="CharacterVisuals" parent="." instance=ExtResource("2_ngl0q")]
+
+[node name="Hurtbox" parent="CharacterVisuals" index="2" node_paths=PackedStringArray("health")]
+health = NodePath("../../Health")
+
+[node name="EnemyController" type="Node" parent="."]
+script = ExtResource("3_mk2qo")
+
+[editable path="CharacterVisuals"]

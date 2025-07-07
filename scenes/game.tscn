@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://282rc0w5sow1" path="res://scripts/game.gd" id="1_p57ef"]
 [ext_resource type="PackedScene" uid="uid://bdt2slf3fbn0w" path="res://scenes/backgrounds/sticksville.tscn" id="2_u5sy4"]
-[ext_resource type="PackedScene" uid="uid://o7ri7c0ndab4" path="res://scenes/sandbag.tscn" id="3_gee14"]
 [ext_resource type="PackedScene" uid="uid://brpc3g1pt530j" path="res://scenes/player.tscn" id="4_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://dhyo8g14nrhcm" path="res://scenes/chain_guy.tscn" id="5_u5sy4"]
 [ext_resource type="Script" uid="uid://ro3vbp5repkt" path="res://scripts/shaker.gd" id="5_vtaks"]
 [ext_resource type="FontFile" uid="uid://cl4gh5255gsvf" path="res://textures/fonts/uforia.png" id="6_kvpfn"]
 [ext_resource type="AudioStream" uid="uid://cmoyjxw0nmbk7" path="res://audio/music/ingame_0.ogg" id="7_u5sy4"]
@@ -63,17 +63,14 @@ follow_viewport_enabled = true
 [node name="Foreground" type="Node2D" parent="GameCanvasLayer"]
 y_sort_enabled = true
 
-[node name="Sandbag" parent="GameCanvasLayer/Foreground" instance=ExtResource("3_gee14")]
-position = Vector2(128, 120)
-
-[node name="Sandbag2" parent="GameCanvasLayer/Foreground" instance=ExtResource("3_gee14")]
-position = Vector2(160, 120)
-
 [node name="Player" parent="GameCanvasLayer/Foreground" instance=ExtResource("4_0tnpc")]
 unique_name_in_owner = true
 position = Vector2(48, 120)
 
 [node name="AudioListener2D" type="AudioListener2D" parent="GameCanvasLayer/Foreground/Player"]
+
+[node name="ChainGuy" parent="GameCanvasLayer/Foreground" instance=ExtResource("5_u5sy4")]
+position = Vector2(192, 104)
 
 [node name="CameraRoot" type="Node2D" parent="GameCanvasLayer/Foreground"]
 
