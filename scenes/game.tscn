@@ -1,0 +1,134 @@
+[gd_scene load_steps=13 format=3 uid="uid://b1os7rbgwmy33"]
+
+[ext_resource type="Script" uid="uid://282rc0w5sow1" path="res://scripts/game.gd" id="1_p57ef"]
+[ext_resource type="PackedScene" uid="uid://bdt2slf3fbn0w" path="res://scenes/backgrounds/sticksville.tscn" id="2_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://o7ri7c0ndab4" path="res://scenes/sandbag.tscn" id="3_gee14"]
+[ext_resource type="PackedScene" uid="uid://brpc3g1pt530j" path="res://scenes/player.tscn" id="4_0tnpc"]
+[ext_resource type="Script" uid="uid://ro3vbp5repkt" path="res://scripts/shaker.gd" id="5_vtaks"]
+[ext_resource type="FontFile" uid="uid://cl4gh5255gsvf" path="res://textures/fonts/uforia.png" id="6_kvpfn"]
+[ext_resource type="AudioStream" uid="uid://cmoyjxw0nmbk7" path="res://audio/music/ingame_0.ogg" id="7_u5sy4"]
+
+[sub_resource type="Animation" id="Animation_choun"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_85g3d"]
+resource_name = "shake"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(-10, 0), Vector2(10, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ya4ey"]
+_data = {
+&"RESET": SubResource("Animation_choun"),
+&"shake": SubResource("Animation_85g3d")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_tipki"]
+font = ExtResource("6_kvpfn")
+font_size = 8
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_o6xl0"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_p57ef")
+
+[node name="GameCanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Sticksville" parent="GameCanvasLayer" instance=ExtResource("2_u5sy4")]
+
+[node name="Foreground" type="Node2D" parent="GameCanvasLayer"]
+y_sort_enabled = true
+
+[node name="Sandbag" parent="GameCanvasLayer/Foreground" instance=ExtResource("3_gee14")]
+position = Vector2(128, 120)
+
+[node name="Sandbag2" parent="GameCanvasLayer/Foreground" instance=ExtResource("3_gee14")]
+position = Vector2(160, 120)
+
+[node name="Player" parent="GameCanvasLayer/Foreground" instance=ExtResource("4_0tnpc")]
+unique_name_in_owner = true
+position = Vector2(48, 120)
+
+[node name="AudioListener2D" type="AudioListener2D" parent="GameCanvasLayer/Foreground/Player"]
+
+[node name="CameraRoot" type="Node2D" parent="GameCanvasLayer/Foreground"]
+
+[node name="CameraShake" type="Node2D" parent="GameCanvasLayer/Foreground/CameraRoot"]
+physics_interpolation_mode = 2
+script = ExtResource("5_vtaks")
+
+[node name="Camera2D" type="Camera2D" parent="GameCanvasLayer/Foreground/CameraRoot/CameraShake"]
+offset = Vector2(0, 60)
+position_smoothing_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameCanvasLayer/Foreground/CameraRoot/CameraShake"]
+libraries = {
+&"": SubResource("AnimationLibrary_ya4ey")
+}
+
+[node name="HUDCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUDRoot" type="Control" parent="HUDCanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HUDCanvasLayer/HUDRoot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Control" type="Control" parent="HUDCanvasLayer/HUDRoot/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUDCanvasLayer/HUDRoot/MarginContainer/Control"]
+layout_mode = 1
+offset_right = 80.0
+offset_bottom = 23.0
+text = "lorem freakin ipsum"
+label_settings = SubResource("LabelSettings_tipki")
+uppercase = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamPolyphonic_o6xl0")
+autoplay = true
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_u5sy4")
+autoplay = true
+bus = &"Music"

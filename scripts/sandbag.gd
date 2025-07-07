@@ -9,7 +9,7 @@ const Health := Types.Health
 
 func _ready() -> void:
 	health.damaged.connect(_on_hurtbox_damaged)
-	health.depleted.connect(queue_free.call_deferred)
+	#health.depleted.connect(queue_free.call_deferred)
 
 
 func _on_hurtbox_damaged(amount: float) -> void:

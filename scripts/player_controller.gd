@@ -8,11 +8,14 @@ const HitInfo := preload('res://scripts/resources/hit_info.gd')
 
 @export var character_component: CharacterComponent
 
+var _combo_string: Array[Callable] = [
+	func () -> bool:
+		return true
+]
+
 var combo_counter: int
-var combo_queue: Array[Callable]
 var move_axes: Vector2
 
-@onready var combo_animation_player: AnimationPlayer = get_node(^'../ComboAnimationPlayer')
 @onready var animation_tree: AnimationTree = (
 		get_node(^'../PlayerAnimationRoot/AnimationPlayer/AnimationTree'))
 @onready var audio: AudioStreamPlaybackPolyphonic = (
@@ -20,10 +23,6 @@ var move_axes: Vector2
 @onready var frame_data: FrameData = (
 		get_node(^'../PlayerAnimationRoot/FrameData') as Object as FrameData)
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree[&'parameters/playback']
-
-
-func _ready() -> void:
-	combo_animation_player.animation_finished.connect(_on_combo_animation_player_animation_finished)
 
 
 func _process(delta: float) -> void:
@@ -41,16 +40,12 @@ func _physics_process(delta: float) -> void:
 	var move := move_axes * 75 * delta
 
 	move.y *= -1
-	move *= float(playback.get_current_node() != &'jab')
 	character_component.try_move(move)
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&'attack_primary'):
-		combo_queue.push_back(func () -> bool:
-				combo_animation_player.play(&'combo')
-				playback.travel(&'jab')
-				return false)
+		pass
 
 
 func _on_hitbox_hit(victims: Array[Node], hit_info: HitInfo) -> void:
@@ -58,11 +53,9 @@ func _on_hitbox_hit(victims: Array[Node], hit_info: HitInfo) -> void:
 		if victim.owner == owner:
 			continue
 
-		combo_animation_player.play(&'combo')
-		audio.play_stream(preload('res://audio/sounds/hit.wav'))
+		combo_counter += 1
 
-
-func _on_combo_animation_player_animation_finished(anim_name: StringName) -> void:
-	if not combo_queue.is_empty():
-		if not combo_queue.pop_front().call():
-			combo_queue.clear()
+		if hit_info.damage > 34:
+			audio.play_stream(preload('res://audio/sounds/big_hit.wav'))
+		else:
+			audio.play_stream(preload('res://audio/sounds/hit.wav'))

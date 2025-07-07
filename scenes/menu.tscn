@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1dohfd1nd8n"]
+
+[ext_resource type="Script" uid="uid://bh4k8j0s3xuop" path="res://scripts/menu.gd" id="1_con2f"]
+[ext_resource type="Texture2D" uid="uid://eluu3rvy3aa0" path="res://textures/memphis_0.png" id="1_yqeox"]
+[ext_resource type="FontFile" uid="uid://cl4gh5255gsvf" path="res://textures/fonts/uforia.png" id="2_vjb58"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjb58"]
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+skew = Vector2(1, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 2
+anti_aliasing = false
+
+[sub_resource type="Theme" id="Theme_vjb58"]
+default_font = ExtResource("2_vjb58")
+default_font_size = 8
+Button/styles/normal = SubResource("StyleBoxFlat_vjb58")
+
+[node name="Menu" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchor_right = 0.277778
+anchor_bottom = 0.37037
+offset_bottom = 1.52588e-05
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_con2f")
+metadata/_edit_use_anchors_ = true
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_yqeox")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.416667
+anchor_right = 0.75
+anchor_bottom = 0.916667
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_vjb58")
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "START"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "QUIT"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.033
+anchor_right = 0.825
+anchor_bottom = 0.267
+offset_left = -5.34058e-05
+offset_top = 0.0800076
+offset_right = -0.000213623
+offset_bottom = -0.0799408
+grow_horizontal = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.133333, 0, 1, 1)
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_outline_size = 4
+theme_override_fonts/normal_font = ExtResource("2_vjb58")
+theme_override_font_sizes/normal_font_size = 16
+text = "WESTMINSTER
+WALLOP"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1

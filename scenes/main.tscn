@@ -1,34 +1,20 @@
-[gd_scene load_steps=13 format=3 uid="uid://bht21f7aw7qyw"]
+[gd_scene load_steps=6 format=3 uid="uid://bht21f7aw7qyw"]
 
 [ext_resource type="Script" uid="uid://d012nw2xofp5j" path="res://scripts/main.gd" id="1_0wfyh"]
-[ext_resource type="PackedScene" uid="uid://brpc3g1pt530j" path="res://scenes/player.tscn" id="1_o5qli"]
-[ext_resource type="Script" uid="uid://282rc0w5sow1" path="res://scripts/game.gd" id="2_tbgi4"]
-[ext_resource type="PackedScene" uid="uid://o7ri7c0ndab4" path="res://scenes/sandbag.tscn" id="3_sugp2"]
-[ext_resource type="PackedScene" uid="uid://bdt2slf3fbn0w" path="res://scenes/backgrounds/sticksville.tscn" id="3_tipki"]
 [ext_resource type="Shader" uid="uid://dplr5hgegn35b" path="res://shaders/lut_downmixed_canvas_item.gdshader" id="6_o6xl0"]
-[ext_resource type="FontFile" uid="uid://cl4gh5255gsvf" path="res://textures/fonts/uforia.png" id="6_tipki"]
 [ext_resource type="Texture2D" uid="uid://cjhklxiv616vl" path="res://textures/color_lut_nes.png" id="7_o6xl0"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_tipki"]
-font = ExtResource("6_tipki")
-font_size = 8
-
-[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_o6xl0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o6xl0"]
 shader = ExtResource("6_o6xl0")
 shader_parameter/lut = ExtResource("7_o6xl0")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_sgp6g"]
-viewport_path = NodePath("Game/GameViewport")
+viewport_path = NodePath("SubViewport")
 
 [node name="Main" type="Node"]
 script = ExtResource("1_0wfyh")
 
-[node name="Game" type="Node" parent="."]
-script = ExtResource("2_tbgi4")
-
-[node name="GameViewport" type="SubViewport" parent="Game"]
+[node name="SubViewport" type="SubViewport" parent="."]
 unique_name_in_owner = true
 transparent_bg = true
 handle_input_locally = false
@@ -37,32 +23,11 @@ canvas_item_default_texture_filter = 0
 audio_listener_enable_2d = true
 size = Vector2i(320, 240)
 
-[node name="GameCanvasLayer" type="CanvasLayer" parent="Game/GameViewport"]
-follow_viewport_enabled = true
+[node name="ScreenCanvasLayer" type="CanvasLayer" parent="SubViewport"]
+layer = 100
 
-[node name="Sticksville" parent="Game/GameViewport/GameCanvasLayer" instance=ExtResource("3_tipki")]
-
-[node name="Foreground" type="Node2D" parent="Game/GameViewport/GameCanvasLayer"]
-y_sort_enabled = true
-
-[node name="Sandbag" parent="Game/GameViewport/GameCanvasLayer/Foreground" instance=ExtResource("3_sugp2")]
-position = Vector2(128, 120)
-
-[node name="Sandbag2" parent="Game/GameViewport/GameCanvasLayer/Foreground" instance=ExtResource("3_sugp2")]
-position = Vector2(160, 120)
-
-[node name="Player" parent="Game/GameViewport/GameCanvasLayer/Foreground" instance=ExtResource("1_o5qli")]
-position = Vector2(48, 120)
-
-[node name="AudioListener2D" type="AudioListener2D" parent="Game/GameViewport/GameCanvasLayer/Foreground/Player"]
-
-[node name="Camera2D" type="Camera2D" parent="Game/GameViewport/GameCanvasLayer/Foreground"]
-offset = Vector2(0, 60)
-position_smoothing_enabled = true
-
-[node name="ScreenCanvasLayer" type="CanvasLayer" parent="Game/GameViewport"]
-
-[node name="FadeColorRect" type="ColorRect" parent="Game/GameViewport/ScreenCanvasLayer"]
+[node name="FadeColorRect" type="ColorRect" parent="SubViewport/ScreenCanvasLayer"]
+unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -70,44 +35,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
-
-[node name="HUDCanvasLayer" type="CanvasLayer" parent="Game/GameViewport"]
-
-[node name="HUDRoot" type="Control" parent="Game/GameViewport/HUDCanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Game/GameViewport/HUDCanvasLayer/HUDRoot"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
-
-[node name="Control" type="Control" parent="Game/GameViewport/HUDCanvasLayer/HUDRoot/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Game/GameViewport/HUDCanvasLayer/HUDRoot/MarginContainer/Control"]
-layout_mode = 1
-offset_right = 80.0
-offset_bottom = 23.0
-text = "lorem freakin ipsum"
-label_settings = SubResource("LabelSettings_tipki")
-uppercase = true
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Game"]
-stream = SubResource("AudioStreamPolyphonic_o6xl0")
-autoplay = true
 
 [node name="ClearColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -118,7 +45,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="GameViewportTextureRect" type="TextureRect" parent="."]
+[node name="SubViewportTextureRect" type="TextureRect" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_o6xl0")
 anchors_preset = 15

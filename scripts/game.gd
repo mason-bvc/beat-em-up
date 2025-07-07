@@ -9,7 +9,10 @@ const Hitbox := preload('res://scripts/hitbox.gd')
 const HitInfo := preload('res://scripts/resources/hit_info.gd')
 const Sandbag := preload('res://scripts/sandbag.gd')
 
+var _camera_shaker
 var _y_max: YMax = null
+
+@onready var player: Node2D = %Player
 
 var _node_added_handlers: Dictionary[Variant, Callable] = {
 	YMax: func (node: YMax) -> void:
@@ -20,6 +23,9 @@ var _node_added_handlers: Dictionary[Variant, Callable] = {
 
 	Hitbox: func (node: Hitbox) -> void:
 		node.hit_something.connect(_on_hitbox_hit_something),
+
+	preload('res://scripts/shaker.gd'): func (node: Node) -> void:
+		_camera_shaker = node,
 }
 
 @onready var audio_playback: AudioStreamPlaybackPolyphonic = $AudioStreamPlayer.get_stream_playback()
@@ -37,6 +43,13 @@ func try_damaging(victim: Node, hit_info: HitInfo) -> bool:
 
 func _enter_tree() -> void:
 	get_tree().node_added.connect(_on_tree_node_added)
+
+
+func _process(delta: float) -> void:
+	var camera := get_viewport().get_camera_2d()
+
+	if is_instance_valid(camera):
+		camera.global_position.x = player.global_position.x
 
 
 func _on_tree_node_added(node: Node) -> void:
@@ -60,4 +73,7 @@ func _on_hitbox_hit_something(victims: Array[Node], hit_info: HitInfo) -> void:
 
 	for i in mini(max, victims.size()):
 		var victim := victims[i]
-		try_damaging(victim, hit_info)
+
+		if try_damaging(victim, hit_info):
+			if is_instance_valid(_camera_shaker):
+				_camera_shaker.shake(0.25)

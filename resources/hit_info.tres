@@ -6,4 +6,6 @@
 script = ExtResource("1_bapa0")
 damage = 1.0
 max_victims = 0
+does_launch = false
+launch_amount = Vector2(0, 0)
 extra = {}
