@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cmncedqum2nbs"]
+[gd_scene load_steps=30 format=3 uid="uid://cmncedqum2nbs"]
 
 [ext_resource type="Script" uid="uid://ddbjih6ugqjs0" path="res://scripts/character_visuals.gd" id="1_nhm7w"]
 [ext_resource type="Script" uid="uid://c5s6dhxluqtt0" path="res://scripts/hitbox.gd" id="3_1cm3h"]
@@ -13,7 +13,10 @@ size = Vector2(2, 10)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1cm3h"]
 size = Vector2(12, 13)
 
-[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_rmqy4"]
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_i3au4"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x1ysr"]
+animation = &"die"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i3au4"]
 animation = &"hurt"
@@ -77,7 +80,11 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qx2ld"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_rgsej"]
+states/die/node = SubResource("AnimationNodeAnimation_x1ysr")
+states/die/position = Vector2(736, 239)
 states/hurt/node = SubResource("AnimationNodeAnimation_i3au4")
 states/hurt/position = Vector2(608, 253)
 states/idle/node = SubResource("AnimationNodeAnimation_f8j26")
@@ -92,7 +99,7 @@ states/walk/node = SubResource("AnimationNodeAnimation_1cm3h")
 states/walk/position = Vector2(361, -9)
 states/whip/node = SubResource("AnimationNodeAnimation_5ufdq")
 states/whip/position = Vector2(729, 179)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_rgsej"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_kqtih"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_f8j26"), "idle", "End", SubResource("AnimationNodeStateMachineTransition_m66dh"), "jab", "idle", SubResource("AnimationNodeStateMachineTransition_1cm3h"), "uppercut", "idle", SubResource("AnimationNodeStateMachineTransition_n23vo"), "roundhouse", "idle", SubResource("AnimationNodeStateMachineTransition_xo3u1"), "whip", "idle", SubResource("AnimationNodeStateMachineTransition_5ufdq"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_x1ysr")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_rgsej"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_kqtih"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_f8j26"), "idle", "End", SubResource("AnimationNodeStateMachineTransition_m66dh"), "jab", "idle", SubResource("AnimationNodeStateMachineTransition_1cm3h"), "uppercut", "idle", SubResource("AnimationNodeStateMachineTransition_n23vo"), "roundhouse", "idle", SubResource("AnimationNodeStateMachineTransition_xo3u1"), "whip", "idle", SubResource("AnimationNodeStateMachineTransition_5ufdq"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_x1ysr"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_qx2ld")]
 graph_offset = Vector2(-44, 81)
 
 [node name="CharacterVisuals" type="Node2D"]
@@ -122,8 +129,12 @@ shape = SubResource("RectangleShape2D_1cm3h")
 metadata/_edit_lock_ = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamPolyphonic_rmqy4")
+stream = SubResource("AudioStreamPolyphonic_i3au4")
 autoplay = true
+
+[node name="Voice" type="AudioStreamPlayer2D" parent="."]
+
+[node name="BodyAudio" type="AudioStreamPlayer2D" parent="."]
 
 [node name="FrameData" type="Node" parent="."]
 script = ExtResource("4_rmqy4")

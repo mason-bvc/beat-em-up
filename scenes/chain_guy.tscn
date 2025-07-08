@@ -22,6 +22,9 @@ target = NodePath("..")
 [node name="Hurtbox" parent="CharacterVisuals" index="2" node_paths=PackedStringArray("health")]
 health = NodePath("../../Health")
 
+[node name="AudioStreamPlayer2D" parent="CharacterVisuals" index="3"]
+stream = null
+
 [node name="EnemyController" type="Node" parent="."]
 script = ExtResource("3_mk2qo")
 

@@ -6,6 +6,7 @@ enum State {
 	CHASING,
 	ATTACKING,
 	HURTING,
+	DYING,
 }
 
 
@@ -24,6 +25,9 @@ func _ready() -> void:
 
 	chain_guy.health.damaged.connect(func (amount: float) -> void:
 		state = State.HURTING)
+
+	chain_guy.health.depleted.connect(func () -> void:
+		state = State.DYING)
 
 
 func _physics_process(delta: float) -> void:
@@ -59,6 +63,13 @@ func _physics_process(delta: float) -> void:
 
 		if attack_cooldown <= 0:
 			state = State.CHASING
+	elif state == State.DYING:
+		if just_switched_states:
+			chain_guy.character_visuals.animation_tree_playback.start(&'die')
+			(get_tree().create_tween()
+					.tween_property(chain_guy, ^'global_position', chain_guy.global_position + Vector2.RIGHT * -chain_guy.character_visuals.scale.x * 64, 1)
+					.set_ease(Tween.EASE_OUT)
+					.set_trans(Tween.TRANS_CUBIC))
 
 	attack_cooldown -= delta
 	attack_cooldown = maxf(attack_cooldown, 0)

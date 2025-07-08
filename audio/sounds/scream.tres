@@ -1,0 +1,11 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=4 format=3 uid="uid://dwbn4vj6r0pk4"]
+
+[ext_resource type="AudioStream" uid="uid://bjtney1qgp5jn" path="res://audio/sounds/scream_0.wav" id="1_yubie"]
+[ext_resource type="AudioStream" uid="uid://dlggte1djbwsv" path="res://audio/sounds/scream_1.wav" id="2_motjc"]
+[ext_resource type="AudioStream" uid="uid://b4npvjpoyx1wj" path="res://audio/sounds/scream_2.wav" id="3_kogt8"]
+
+[resource]
+streams_count = 3
+stream_0/stream = ExtResource("1_yubie")
+stream_1/stream = ExtResource("2_motjc")
+stream_2/stream = ExtResource("3_kogt8")

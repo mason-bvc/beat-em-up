@@ -61,6 +61,7 @@ follow_viewport_enabled = true
 [node name="Sticksville" parent="GameCanvasLayer" instance=ExtResource("2_u5sy4")]
 
 [node name="Foreground" type="Node2D" parent="GameCanvasLayer"]
+unique_name_in_owner = true
 y_sort_enabled = true
 
 [node name="Player" parent="GameCanvasLayer/Foreground" instance=ExtResource("4_0tnpc")]
@@ -71,6 +72,9 @@ position = Vector2(48, 120)
 
 [node name="ChainGuy" parent="GameCanvasLayer/Foreground" instance=ExtResource("5_u5sy4")]
 position = Vector2(192, 104)
+
+[node name="ChainGuy2" parent="GameCanvasLayer/Foreground" instance=ExtResource("5_u5sy4")]
+position = Vector2(288, 104)
 
 [node name="CameraRoot" type="Node2D" parent="GameCanvasLayer/Foreground"]
 

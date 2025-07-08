@@ -1,4 +1,4 @@
-[gd_resource type="AnimationLibrary" load_steps=13 format=3 uid="uid://dlcvq8fovjcsy"]
+[gd_resource type="AnimationLibrary" load_steps=17 format=3 uid="uid://dlcvq8fovjcsy"]
 
 [ext_resource type="Texture2D" uid="uid://dkdokm5vosfv" path="res://textures/characters/chain_guy/atlas_textures/chain_guy_idle.tres" id="1_rxlk2"]
 [ext_resource type="Texture2D" uid="uid://ycs4pqfxibyd" path="res://textures/characters/chain_guy/atlas_textures/chain_guy_stride.tres" id="2_5ts0v"]
@@ -6,16 +6,18 @@
 [ext_resource type="Texture2D" uid="uid://fh24vmi1l4jl" path="res://textures/characters/chain_guy/atlas_textures/chain_guy_whip_1.tres" id="4_nwyku"]
 [ext_resource type="Script" uid="uid://cwe3xluj631g7" path="res://scripts/resources/hit_info.gd" id="5_m08sw"]
 [ext_resource type="Texture2D" uid="uid://y4jus3y3l0pd" path="res://textures/characters/chain_guy/atlas_textures/chain_guy_die_0.tres" id="6_5ts0v"]
+[ext_resource type="Texture2D" uid="uid://ungjchyr6s8q" path="res://textures/characters/chain_guy/atlas_textures/chain_guy_die_1.tres" id="7_nnxjl"]
+[ext_resource type="AudioStream" uid="uid://dwbn4vj6r0pk4" path="res://audio/sounds/scream.tres" id="8_nwyku"]
+[ext_resource type="AudioStream" uid="uid://ddkn5grelykmp" path="res://audio/sounds/big_hit.wav" id="9_m08sw"]
 
-[sub_resource type="Animation" id="Animation_i3au4"]
+[sub_resource type="Animation" id="Animation_x1ysr"]
 length = 0.001
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
@@ -35,14 +37,43 @@ tracks/1/keys = {
 "values": [Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_x1ysr"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_nnxjl"]
+resource_name = "hurt"
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 0
 tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_5ts0v")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.141),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(-2, 0), Vector2(2, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_i3au4"]
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
@@ -142,9 +173,9 @@ tracks/2/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_nnxjl"]
-resource_name = "hurt"
-length = 0.6
+[sub_resource type="Animation" id="Animation_5ts0v"]
+resource_name = "die"
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -152,10 +183,10 @@ tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 0
 tracks/0/loop_wrap = false
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.366667),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ExtResource("6_5ts0v")]
+"values": [ExtResource("6_5ts0v"), ExtResource("7_nnxjl")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -164,15 +195,46 @@ tracks/1/path = NodePath("Sprite2D:position")
 tracks/1/interp = 0
 tracks/1/loop_wrap = false
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.141),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.366667, 0.4, 0.433333, 0.466667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2(-2, 0), Vector2(2, 0), Vector2(0, 0)]
+"values": [Vector2(-2, 0), Vector2(2, 0), Vector2(-2, 0), Vector2(0, 0), Vector2(0, 8), Vector2(-2, 8), Vector2(2, 8), Vector2(-2, 8), Vector2(0, 8)]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Voice")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_nwyku")
+}],
+"times": PackedFloat32Array(0.3)
+}
+tracks/2/use_blend = true
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BodyAudio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("9_m08sw")
+}],
+"times": PackedFloat32Array(0.3)
+}
+tracks/3/use_blend = true
 
 [resource]
 _data = {
 &"RESET": SubResource("Animation_x1ysr"),
+&"die": SubResource("Animation_5ts0v"),
 &"hurt": SubResource("Animation_nnxjl"),
 &"idle": SubResource("Animation_i3au4"),
 &"walk": SubResource("Animation_5ufdq"),

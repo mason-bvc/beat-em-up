@@ -9,10 +9,13 @@ const Hitbox := preload('res://scripts/hitbox.gd')
 const HitInfo := preload('res://scripts/resources/hit_info.gd')
 const Sandbag := preload('res://scripts/sandbag.gd')
 
+const IMPACT_EFFECT_0 := preload('res://scenes/effects/impact_0.tscn')
+
 var _camera_shaker
 var _y_max: YMax = null
 
 @onready var player: Node2D = %Player
+@onready var foreground: Node2D = %Foreground
 
 var _node_added_handlers: Dictionary[Variant, Callable] = {
 	YMax: func (node: YMax) -> void:
@@ -34,14 +37,20 @@ var _node_added_handlers: Dictionary[Variant, Callable] = {
 @onready var audio_playback: AudioStreamPlaybackPolyphonic = $AudioStreamPlayer.get_stream_playback()
 
 
-func try_damaging(victim: Node, hit_info: HitInfo) -> bool:
+func try_damaging(victim: Node, hit_info: HitInfo) -> int:
 	var victim_health = Health.try_get_from(victim)
+	var r := 0
 
 	if victim_health is Health:
 		victim_health.damage(hit_info.damage)
-		return true
+		r |= 1
 
-	return false
+		if victim_health.amount <= 0:
+			r |= 2
+
+		return r
+
+	return r
 
 
 func _enter_tree() -> void:
@@ -80,3 +89,8 @@ func _on_hitbox_hit_something(victims: Array[Node], hit_info: HitInfo) -> void:
 		if try_damaging(victim, hit_info):
 			if is_instance_valid(_camera_shaker):
 				_camera_shaker.shake(0.25)
+
+			var effect := IMPACT_EFFECT_0.instantiate()
+
+			effect.global_position = victim.global_position
+			foreground.add_child.call_deferred(effect)

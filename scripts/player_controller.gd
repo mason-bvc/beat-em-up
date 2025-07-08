@@ -3,6 +3,7 @@ extends Node
 
 const Player := preload('res://scripts/player.gd')
 const HitInfo := preload('res://scripts/resources/hit_info.gd')
+const Health := preload('res://scripts/health.gd')
 
 var attack_timer: float
 var move_axes: Vector2
@@ -48,7 +49,11 @@ func _on_hitbox_hit(victims: Array[Node], hit_info: HitInfo) -> void:
 		if victim.owner == owner:
 			continue
 
-		if hit_info.damage > 34:
-			player.character_visuals.audio.play_stream(preload('res://audio/sounds/big_hit.wav'))
-		else:
-			player.character_visuals.audio.play_stream(preload('res://audio/sounds/big_hit.wav'))
+		var snd := preload('res://audio/sounds/big_hit.wav')
+		var victim_health = Health.try_get_from(victim)
+
+		if victim_health is Health:
+			if victim_health.amount - hit_info.damage <= 0:
+				snd = preload('res://audio/sounds/bigger_hit.wav')
+
+		player.character_visuals.audio.play_stream(snd)
