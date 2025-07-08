@@ -1,0 +1,210 @@
+[gd_resource type="AnimationLibrary" load_steps=15 format=3 uid="uid://dwox5v5ddqj4f"]
+
+[ext_resource type="Texture2D" uid="uid://ck3ioc8uwrsa4" path="res://textures/characters/jem/atlas_textures/jem_idle.tres" id="1_scdl6"]
+[ext_resource type="Texture2D" uid="uid://31wb40duoqt8" path="res://textures/characters/jem/atlas_textures/jem_punch_0.tres" id="2_q37la"]
+[ext_resource type="Texture2D" uid="uid://duoyjclnpk8qw" path="res://textures/characters/jem/atlas_textures/jem_punch_1.tres" id="3_p6tbg"]
+[ext_resource type="Script" uid="uid://cwe3xluj631g7" path="res://scripts/resources/hit_info.gd" id="4_q64p1"]
+[ext_resource type="Texture2D" uid="uid://bngiwph8gkish" path="res://textures/characters/jem/atlas_textures/jem_hurt_0.tres" id="5_mxn6b"]
+[ext_resource type="Texture2D" uid="uid://kfb1y6x0a4jo" path="res://textures/characters/jem/atlas_textures/jem_hurt_1.tres" id="6_iptjj"]
+[ext_resource type="Texture2D" uid="uid://b31tf1320d0a5" path="res://textures/characters/jem/atlas_textures/jem_stride.tres" id="7_q37la"]
+
+[sub_resource type="Animation" id="Animation_x1ysr"]
+resource_name = "idle"
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_scdl6")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qx2ld"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_scdl6")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Resource" id="Resource_7k70o"]
+resource_local_to_scene = true
+script = ExtResource("4_q64p1")
+damage = 34.0
+max_victims = 1
+does_launch = false
+launch_amount = Vector2(0, 0)
+extra = {}
+
+[sub_resource type="Animation" id="Animation_ipgij"]
+resource_name = "jab"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_q37la"), ExtResource("3_p6tbg")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(10, 0), Vector2(8, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("JabHitbox")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [SubResource("Resource_7k70o")],
+"method": &"check_hit"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_7k70o"]
+resource_name = "hurt"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_mxn6b")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(-2, 0), Vector2(2, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mtax4"]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("5_mxn6b"), ExtResource("6_iptjj")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.39304, 0.426373, 0.459707),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-2, 0), Vector2(2, 0), Vector2(0, 0), Vector2(-2, 2), Vector2(2, 2), Vector2(0, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_scdl6"]
+resource_name = "walk"
+length = 0.25
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("7_q37la"), ExtResource("1_scdl6")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(0, -1), Vector2(0, 0)]
+}
+
+[resource]
+_data = {
+&"RESET": SubResource("Animation_qx2ld"),
+&"die": SubResource("Animation_mtax4"),
+&"hurt": SubResource("Animation_7k70o"),
+&"idle": SubResource("Animation_x1ysr"),
+&"jab": SubResource("Animation_ipgij"),
+&"walk": SubResource("Animation_scdl6")
+}

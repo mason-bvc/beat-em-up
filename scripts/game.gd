@@ -10,12 +10,14 @@ const HitInfo := preload('res://scripts/resources/hit_info.gd')
 const Sandbag := preload('res://scripts/sandbag.gd')
 
 const IMPACT_EFFECT_0 := preload('res://scenes/effects/impact_0.tscn')
+const CHAIN_GUY := preload('res://scenes/chain_guy.tscn')
 
 var _camera_shaker
 var _y_max: YMax = null
 
 @onready var player: Node2D = %Player
 @onready var foreground: Node2D = %Foreground
+@onready var enemy_spawn_timer: Timer = $EnemySpawnTimer
 
 var _node_added_handlers: Dictionary[Variant, Callable] = {
 	YMax: func (node: YMax) -> void:
@@ -31,6 +33,7 @@ var _node_added_handlers: Dictionary[Variant, Callable] = {
 		_camera_shaker = node,
 
 	preload('res://scripts/chain_guy.gd'): func (node: Node) -> void:
+		await node.ready
 		node.enemy_controller.target = player,
 }
 
@@ -55,6 +58,18 @@ func try_damaging(victim: Node, hit_info: HitInfo) -> int:
 
 func _enter_tree() -> void:
 	get_tree().node_added.connect(_on_tree_node_added)
+
+
+func _ready() -> void:
+	enemy_spawn_timer.timeout.connect(func () -> void:
+		var chain_guy := CHAIN_GUY.instantiate()
+
+		chain_guy.global_position = player.global_position + Vector2.RIGHT * 160 + Vector2.RIGHT * randf_range(0, 64)
+		chain_guy.global_position.y += randf_range(-32, 32)
+		chain_guy.global_position.y = clampf(chain_guy.global_position.y, 64, 96)
+		foreground.add_child.call_deferred(chain_guy))
+
+	enemy_spawn_timer.start()
 
 
 func _process(delta: float) -> void:

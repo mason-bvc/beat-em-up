@@ -7,6 +7,7 @@ const Health := preload('res://scripts/health.gd')
 
 var attack_timer: float
 var move_axes: Vector2
+var face_sign: float = 1
 
 @onready var player: Player = owner
 
@@ -15,6 +16,11 @@ func _process(delta: float) -> void:
 	move_axes.x = Input.get_axis(&'move_left', &'move_right')
 	move_axes.y = Input.get_axis(&'move_down', &'move_up')
 	move_axes = move_axes.normalized()
+
+	if not is_equal_approx(move_axes.x, 0):
+		face_sign = signf(move_axes.x)
+
+	player.character_visuals.scale.x = face_sign
 
 	var is_not_walking := not is_equal_approx(move_axes.length_squared(), 0)
 

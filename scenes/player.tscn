@@ -1,12 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://brpc3g1pt530j"]
+[gd_scene load_steps=6 format=3 uid="uid://brpc3g1pt530j"]
 
 [ext_resource type="Script" uid="uid://d2aidgfi7xh66" path="res://scripts/player.gd" id="1_dqkch"]
 [ext_resource type="Script" uid="uid://cf7ret34nxjxw" path="res://scripts/player_controller.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bdkotf8snjt0u" path="res://scripts/health.gd" id="2_fjrip"]
 [ext_resource type="Script" uid="uid://dsxvmt6p2arr4" path="res://scripts/character_component.gd" id="2_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://cmncedqum2nbs" path="res://scenes/character_visuals.tscn" id="3_qhqgy"]
-[ext_resource type="Texture2D" uid="uid://dmxlbvuikn2kg" path="res://textures/characters/alex/atlas_textures/alex_idle.tres" id="4_tuyoq"]
-[ext_resource type="AnimationLibrary" uid="uid://0cw4xkg8ts36" path="res://animation_libraries/alex.tres" id="5_fjrip"]
 
 [node name="Player" type="Node2D"]
 texture_filter = 1
@@ -23,16 +21,8 @@ target = NodePath("..")
 [node name="CharacterVisuals" parent="." instance=ExtResource("3_qhqgy")]
 position = Vector2(0, -16)
 
-[node name="Sprite2D" parent="CharacterVisuals" index="0"]
-texture = ExtResource("4_tuyoq")
-
 [node name="Hurtbox" parent="CharacterVisuals" index="2" node_paths=PackedStringArray("health")]
 health = NodePath("../../Health")
-
-[node name="AnimationPlayer" parent="CharacterVisuals" index="5"]
-libraries = {
-&"": ExtResource("5_fjrip")
-}
 
 [node name="PlayerController" type="Node" parent="."]
 script = ExtResource("1_qhqgy")

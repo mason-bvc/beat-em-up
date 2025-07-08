@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://c5s6dhxluqtt0" path="res://scripts/hitbox.gd" id="3_1cm3h"]
 [ext_resource type="Script" uid="uid://cc31s73noqg51" path="res://scripts/hurtbox.gd" id="4_i3au4"]
 [ext_resource type="Script" uid="uid://sa0ejxy2xvox" path="res://scripts/frame_data.gd" id="4_rmqy4"]
-[ext_resource type="Texture2D" uid="uid://dkdokm5vosfv" path="res://textures/characters/chain_guy/atlas_textures/chain_guy_idle.tres" id="5_5ufdq"]
-[ext_resource type="AnimationLibrary" uid="uid://dlcvq8fovjcsy" path="res://animation_libraries/chain_guy.tres" id="5_i3au4"]
+[ext_resource type="Texture2D" uid="uid://ck3ioc8uwrsa4" path="res://textures/characters/jem/atlas_textures/jem_idle.tres" id="6_i3au4"]
+[ext_resource type="AnimationLibrary" uid="uid://dwox5v5ddqj4f" path="res://animation_libraries/jem.tres" id="6_x1ysr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f8j26"]
 size = Vector2(2, 10)
@@ -109,7 +109,7 @@ script = ExtResource("1_nhm7w")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 physics_interpolation_mode = 2
 y_sort_enabled = true
-texture = ExtResource("5_5ufdq")
+texture = ExtResource("6_i3au4")
 
 [node name="JabHitbox" type="Area2D" parent="."]
 position = Vector2(15, -3)
@@ -142,7 +142,7 @@ can_queue_next = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": ExtResource("5_i3au4")
+&"": ExtResource("6_x1ysr")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
