@@ -5,9 +5,18 @@ const Player := preload('res://scripts/player.gd')
 const HitInfo := preload('res://scripts/resources/hit_info.gd')
 const Health := preload('res://scripts/health.gd')
 
+
+enum State {
+	NORMAL,
+	HURTING,
+	DYING,
+}
+
+
 var attack_timer: float
 var move_axes: Vector2
 var face_sign: float = 1
+var state: State
 
 @onready var player: Player = owner
 

@@ -1,10 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://b1os7rbgwmy33"]
+[gd_scene load_steps=11 format=3 uid="uid://b1os7rbgwmy33"]
 
 [ext_resource type="Script" uid="uid://282rc0w5sow1" path="res://scripts/game.gd" id="1_p57ef"]
 [ext_resource type="PackedScene" uid="uid://bdt2slf3fbn0w" path="res://scenes/backgrounds/sticksville.tscn" id="2_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://brpc3g1pt530j" path="res://scenes/player.tscn" id="4_0tnpc"]
 [ext_resource type="Script" uid="uid://ro3vbp5repkt" path="res://scripts/shaker.gd" id="5_vtaks"]
-[ext_resource type="FontFile" uid="uid://cl4gh5255gsvf" path="res://textures/fonts/uforia.png" id="6_kvpfn"]
+[ext_resource type="Texture2D" uid="uid://c7qt8qsr12ldq" path="res://textures/hearts.png" id="6_u5sy4"]
 [ext_resource type="AudioStream" uid="uid://cmoyjxw0nmbk7" path="res://audio/music/ingame_0.ogg" id="7_u5sy4"]
 
 [sub_resource type="Animation" id="Animation_choun"]
@@ -44,10 +44,6 @@ _data = {
 &"RESET": SubResource("Animation_choun"),
 &"shake": SubResource("Animation_85g3d")
 }
-
-[sub_resource type="LabelSettings" id="LabelSettings_tipki"]
-font = ExtResource("6_kvpfn")
-font_size = 8
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_o6xl0"]
 
@@ -113,13 +109,26 @@ theme_override_constants/margin_bottom = 8
 [node name="Control" type="Control" parent="HUDCanvasLayer/HUDRoot/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HUDCanvasLayer/HUDRoot/MarginContainer/Control"]
-layout_mode = 1
-offset_right = 80.0
-offset_bottom = 23.0
-text = "Health 4"
-label_settings = SubResource("LabelSettings_tipki")
-uppercase = true
+[node name="HBoxContainer" type="HBoxContainer" parent="HUDCanvasLayer/HUDRoot/MarginContainer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="HUDCanvasLayer/HUDRoot/MarginContainer/Control/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_u5sy4")
+
+[node name="TextureRect2" type="TextureRect" parent="HUDCanvasLayer/HUDRoot/MarginContainer/Control/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_u5sy4")
+
+[node name="TextureRect3" type="TextureRect" parent="HUDCanvasLayer/HUDRoot/MarginContainer/Control/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_u5sy4")
+
+[node name="TextureRect4" type="TextureRect" parent="HUDCanvasLayer/HUDRoot/MarginContainer/Control/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_u5sy4")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamPolyphonic_o6xl0")
